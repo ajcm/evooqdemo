@@ -33,7 +33,6 @@ public class Transform {
             } else {
                 throw new InputParseException("Input error: Invalid keyword (" + key + ").");
             }
-
         }
 
         return clinicInput;

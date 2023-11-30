@@ -21,7 +21,6 @@ import org.springframework.stereotype.Component;
 public class TaskRunnableImpl implements TaskRunnable {
     Logger LOG = LoggerFactory.getLogger(TaskRunnableImpl.class);
 
-
     @Autowired
     private ClinicApplication clinicApplication;
 
@@ -35,7 +34,6 @@ public class TaskRunnableImpl implements TaskRunnable {
     public void run(String... args) {
 
         try {
-
             validation.verifyInput(args);
 
             String input = args[0];
@@ -44,7 +42,6 @@ public class TaskRunnableImpl implements TaskRunnable {
             ClinicStatus clinicStatus = clinicApplication.process(clinicInput);
 
             LOG.debug("processed output {}", clinicStatus);
-
             var fever = clinicStatus.get(Patient.F);
             var healthy = clinicStatus.get(Patient.H);
             var diabetes = clinicStatus.get(Patient.D);
@@ -58,23 +55,16 @@ public class TaskRunnableImpl implements TaskRunnable {
             LOG.debug(ex.getMessage());
             LOG.debug("Error processing input " + ex.getMessage(), ex);
         }
-
     }
-
 
 
     @Override
     public void displayError(ClinicException ex) {
         System.err.println(ex.getMessage());
         System.err.println("ex: P0,P1..,Pn[,M0,M1,..Mn]");
-        System.err.print("where Pn: Patient state is one of " + Patient.ALLOWED_STATES_KEYS);
-        System.err.println(" and Mn: Medicine is one of " + Medicine.ALLOWED_MEDICINE_KEYS);
+        System.err.print("Pn: Patient state is one of " + Patient.ALLOWED_STATES_KEYS);
+        System.err.println(", Mn: Medicine is one of " + Medicine.ALLOWED_MEDICINE_KEYS);
     }
-
-
-
-
-
 
 
     @Override

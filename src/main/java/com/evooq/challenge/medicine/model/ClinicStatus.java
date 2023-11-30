@@ -7,7 +7,6 @@ public class ClinicStatus {
     Map<Patient, Integer> status = new HashMap<>();
 
     public ClinicStatus() {
-
     }
 
     public ClinicStatus(int fever, int healthy, int diabetes, int tuberculosis, int dead) {

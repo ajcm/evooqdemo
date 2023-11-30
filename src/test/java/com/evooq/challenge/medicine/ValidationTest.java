@@ -27,15 +27,28 @@ public class ValidationTest {
                 () -> validation.verifyInput(new String[]{""}));
         Assertions.assertEquals("Input error: argument is empty.", exception.getMessage());
 
+
         //multiple args
         exception = Assertions.assertThrows(InputParseException.class,
                 () -> validation.verifyInput(new String[]{"banana", "apple"}));
         Assertions.assertEquals("Input error: Expecting only one argument.", exception.getMessage());
 
+        exception = Assertions.assertThrows(InputParseException.class,
+                () -> validation.verifyInput(new String[]{","}));
+        Assertions.assertEquals("Input error: Bad input format.", exception.getMessage());
+
+        exception = Assertions.assertThrows(InputParseException.class,
+                () -> validation.verifyInput(new String[]{",,"}));
+        Assertions.assertEquals("Input error: Bad input format.", exception.getMessage());
+
+        exception = Assertions.assertThrows(InputParseException.class,
+                () -> validation.verifyInput(new String[]{", ,"}));
+        Assertions.assertEquals("Input error: Bad input format.", exception.getMessage());
+
         //bad chars
         exception = Assertions.assertThrows(InputParseException.class,
                 () -> validation.verifyInput(new String[]{"bas??nana"}));
-        Assertions.assertEquals("Input error: Non allowed characters present.", exception.getMessage());
+        Assertions.assertEquals("Input error: Bad input format.", exception.getMessage());
 
     }
 

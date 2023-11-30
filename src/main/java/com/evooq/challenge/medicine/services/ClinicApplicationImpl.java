@@ -34,11 +34,9 @@ public class ClinicApplicationImpl implements ClinicApplication {
 
     private ClinicStatus processPatients(List<Patient> patients) {
         ClinicStatus clinicStatus = new ClinicStatus();
-
         for (Patient p : patients){
             clinicStatus.add(p);
         }
-
         return clinicStatus;
     }
 

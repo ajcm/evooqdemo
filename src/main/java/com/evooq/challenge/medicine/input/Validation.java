@@ -26,11 +26,11 @@ public class Validation {
             throw new InputParseException("Input error: argument is empty.");
         }
 
-        Pattern allowedChars = Pattern.compile("[a-zA-Z\\d,]+");
+        Pattern allowedChars = Pattern.compile("[a-zA-Z\\d]+[a-zA-Z\\d,]+");
         var matcher = allowedChars.matcher(input);
 
         if (!matcher.matches()) {
-            throw new InputParseException("Input error: Non allowed characters present.");
+            throw new InputParseException("Input error: Bad input format.");
         }
     }
 }
