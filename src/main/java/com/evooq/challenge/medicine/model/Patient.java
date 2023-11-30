@@ -2,7 +2,7 @@ package com.evooq.challenge.medicine.model;
 
 import java.util.Set;
 
-public enum PatientState {
+public enum Patient {
 
     F("Fever"),
     H("Healthy"),
@@ -11,11 +11,10 @@ public enum PatientState {
     X("Dead");
 
 
+    public static Set<String> ALLOWED_STATES_KEYS = Set.of(F.name(), H.name(), D.name(), T.name(), X.name());
     private String description;
 
-    public static Set<String> ALLOWED_STATES_KEYS = Set.of(F.name(), H.name(), D.name(), T.name(),X.name());
-
-    PatientState(String description) {
+    Patient(String description) {
         description = description;
     }
 

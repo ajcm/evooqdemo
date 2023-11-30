@@ -9,13 +9,12 @@ public enum Medicine {
     P("Paracetamol"),
     Fsm("Flying Spaghetti Monster"); // special case, not available as input
 
-    private final String description;
-
     public static Set<String> ALLOWED_MEDICINE_KEYS = Set.of(
             As.name(),
             An.name(),
             I.name(),
             P.name());
+    private final String description;
 
     Medicine(String description) {
         this.description = description;

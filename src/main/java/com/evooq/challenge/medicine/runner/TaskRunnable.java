@@ -1,11 +1,13 @@
 package com.evooq.challenge.medicine.runner;
 
+import com.evooq.challenge.medicine.error.ClinicException;
 import com.evooq.challenge.medicine.error.InputParseException;
-import com.evooq.challenge.medicine.model.ClinicStatus;
+import com.evooq.challenge.medicine.model.ClinicInput;
 
 public interface TaskRunnable {
-    void run(String... args);
-    void verifyInput(String[] args) throws InputParseException;
-    void displayError(InputParseException ex);
-    void displayStatus(ClinicStatus clinicStatus);
+    void run(String... args) throws ClinicException;
+
+    void displayError(ClinicException ex);
+
+    void displayStatus(int fever, int healthy, int diabetes, int tuberculosis, int dead);
 }

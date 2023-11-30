@@ -1,24 +1,17 @@
 package com.evooq.challenge.medicine;
 
 import com.evooq.challenge.medicine.error.InputParseException;
-import com.evooq.challenge.medicine.runner.TaskRunnableImpl;
+import com.evooq.challenge.medicine.input.Validation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
-@ActiveProfiles("prod") //force to use something else rather than test
-public class TaskRunnableImplTest {
+public class ValidationTest {
 
     @Autowired
-    TaskRunnableImpl taskRunnable;
-
-    @Test
-    public void testEmptyInput() {
-    }
-
+    Validation validation;
 
     @Test
     public void testVerifyInput() {
@@ -26,18 +19,23 @@ public class TaskRunnableImplTest {
 
         //empty String
         exception = Assertions.assertThrows(InputParseException.class,
-                () -> taskRunnable.verifyInput(null));
+                () -> validation.verifyInput(null));
         Assertions.assertEquals("Input error: Expecting one argument.", exception.getMessage());
 
         //empty String
         exception = Assertions.assertThrows(InputParseException.class,
-                () -> taskRunnable.verifyInput(new String[]{""}));
+                () -> validation.verifyInput(new String[]{""}));
         Assertions.assertEquals("Input error: argument is empty.", exception.getMessage());
 
         //multiple args
         exception = Assertions.assertThrows(InputParseException.class,
-                () -> taskRunnable.verifyInput(new String[]{"banana", "apple"}));
+                () -> validation.verifyInput(new String[]{"banana", "apple"}));
         Assertions.assertEquals("Input error: Expecting only one argument.", exception.getMessage());
+
+        //bad chars
+        exception = Assertions.assertThrows(InputParseException.class,
+                () -> validation.verifyInput(new String[]{"bas??nana"}));
+        Assertions.assertEquals("Input error: Non allowed characters present.", exception.getMessage());
 
     }
 

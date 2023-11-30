@@ -1,7 +1,8 @@
 package com.evooq.challenge.medicine.runner;
 
+import com.evooq.challenge.medicine.error.ClinicException;
 import com.evooq.challenge.medicine.error.InputParseException;
-import com.evooq.challenge.medicine.model.ClinicStatus;
+import com.evooq.challenge.medicine.model.ClinicInput;
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -18,17 +19,13 @@ public class TaskRunnableDummy implements TaskRunnable {
     }
 
     @Override
-    public void displayError(InputParseException ex) {
+    public void displayError(ClinicException ex) {
         throw new NotImplementedException("this method should not be called");
     }
 
     @Override
-    public void displayStatus(ClinicStatus clinicStatus) {
+    public void displayStatus(int fever, int healthy, int diabetes, int tuberculosis, int dead) {
         throw new NotImplementedException("this method should not be called");
-    }
 
-    @Override
-    public void verifyInput(String[] args) {
-        throw new NotImplementedException("this method should not be called");
     }
 }
