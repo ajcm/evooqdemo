@@ -1,8 +1,6 @@
 package com.evooq.challenge.medicine.runner;
 
 import com.evooq.challenge.medicine.error.ClinicException;
-import com.evooq.challenge.medicine.error.InputParseException;
-import com.evooq.challenge.medicine.model.ClinicInput;
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;

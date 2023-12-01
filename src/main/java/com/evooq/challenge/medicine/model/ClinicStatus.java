@@ -28,13 +28,19 @@ public class ClinicStatus {
         return status.get(patient);
     }
 
-    private void set(Patient state, int number) {
+    public void set(Patient state, int number) {
         status.put(state, number);
+    }
+
+    public void inc(Patient state, int number) {
+        var old = get(state);
+        status.put(state, old + number);
     }
 
     public void add(Patient patient) {
         set(patient, get(patient) + 1);
     }
+
 
     @Override
     public String toString() {
@@ -44,5 +50,13 @@ public class ClinicStatus {
                 get(Patient.D),
                 get(Patient.T),
                 get(Patient.X));
+    }
+
+    public int countPatients() {
+        return status.size();
+    }
+
+    public void reset() {
+        status.clear();
     }
 }
