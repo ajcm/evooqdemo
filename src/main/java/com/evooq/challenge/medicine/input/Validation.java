@@ -9,28 +9,32 @@ import java.util.regex.Pattern;
 @Component
 public class Validation {
 
-    public void verifyInput(String[] args) throws InputParseException {
+    public static final Pattern ALLOWED_CHARS = Pattern.compile("[a-zA-Z\\d]+[a-zA-Z\\d, ]+");
+
+    public String verifyInput(String[] args) throws InputParseException {
 
         if (args == null || args.length < 1) {
-            throw new InputParseException("Input error: Expecting one argument.");
+            throw new InputParseException("Input error: Expecting at least one argument.");
         }
 
+        String input;
         if (args.length > 1) {
-            throw new InputParseException("Input error: Expecting only one argument.");
+            input = String.join(",",args);
+        } else {
+            input = StringUtils.strip(args[0]);
         }
-
-        var input = StringUtils.strip(args[0]);
 
         //shouldn't be necessary when getting values from console args
         if (StringUtils.isBlank(input)) {
             throw new InputParseException("Input error: argument is empty.");
         }
 
-        Pattern allowedChars = Pattern.compile("[a-zA-Z\\d]+[a-zA-Z\\d,]+");
-        var matcher = allowedChars.matcher(input);
+        var matcher = ALLOWED_CHARS.matcher(input);
 
         if (!matcher.matches()) {
             throw new InputParseException("Input error: Bad input format.");
         }
+
+        return input;
     }
 }

@@ -53,6 +53,12 @@ public class TransformTest {
 
         var inputData6 = transform.getClinicInput("X,T,T,X,X,X,T,T,X,X,T,T,T,X,X,As,I");
         Assertions.assertEquals("X,T,T,X,X,X,T,T,X,X,T,T,T,X,X,As,I", inputData6.toString());
+
+        var inputData7 = transform.getClinicInput("F P");
+        Assertions.assertEquals("F,P", inputData7.toString());
+
+        var inputData8 = transform.getClinicInput("F ");
+        Assertions.assertEquals("F,", inputData8.toString());
     }
 
 }

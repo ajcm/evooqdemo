@@ -7,22 +7,21 @@ import java.util.List;
 public class ClinicInput {
 
     //order does not matter
-    List<Patient> patients = new LinkedList<>();
+    private final List<Patient> patients = new LinkedList<>();
 
     //must keep order and unique values
-    LinkedHashSet<Medicine> medicines = new LinkedHashSet<>();
+    private final LinkedHashSet<Medicine> medicines = new LinkedHashSet<>();
 
     public static ClinicInput of(List<Patient> patients) {
         ClinicInput clinicInput = new ClinicInput();
-        clinicInput.setPatients(patients);
+        clinicInput.patients.addAll(patients);
 
         return clinicInput;
     }
 
     public static ClinicInput of(List<Patient> patients, List<Medicine> medicineList) {
         ClinicInput clinicInput = new ClinicInput();
-        clinicInput.setPatients(patients);
-
+        clinicInput.patients.addAll(patients);
         medicineList.forEach(m -> clinicInput.getMedicines().add(m));
 
         return clinicInput;
@@ -32,9 +31,6 @@ public class ClinicInput {
         return patients;
     }
 
-    public void setPatients(List<Patient> patients) {
-        this.patients = patients;
-    }
 
     public LinkedHashSet<Medicine> getMedicines() {
         return medicines;
@@ -43,13 +39,9 @@ public class ClinicInput {
     @Override
     public String toString() {
 
-        //StringBuilder stringBuilder = new
-        var listOfPatients = patients.stream().map(p -> p.toString()).toList();
-        var listOfMedicinces = medicines.stream().map(p -> p.toString()).toList();
+        var listOfPatients = patients.stream().map(Enum::toString).toList();
+        var listOfMedicines = medicines.stream().map(Enum::toString).toList();
 
-        String output = String.join(",", listOfPatients) + "," + String.join(",", listOfMedicinces);
-
-
-        return output;
+        return String.join(",", listOfPatients) + "," + String.join(",", listOfMedicines);
     }
 }

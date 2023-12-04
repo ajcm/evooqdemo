@@ -32,9 +32,13 @@ public class ClinicStatus {
         status.put(state, number);
     }
 
-    public void inc(Patient state, int number) {
-        var old = get(state);
-        status.put(state, old + number);
+    public void inc(Patient state, int increment) {
+        var oldCount = get(state);
+        var newCount = oldCount + increment;
+
+        if (newCount >= 0) {
+            status.put(state, newCount);
+        }
     }
 
     public void add(Patient patient) {

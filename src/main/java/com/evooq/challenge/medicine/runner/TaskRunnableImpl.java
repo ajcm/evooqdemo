@@ -19,8 +19,8 @@ import org.springframework.stereotype.Component;
 @Component
 @Profile("!test")
 public class TaskRunnableImpl implements TaskRunnable {
-    Logger LOG = LoggerFactory.getLogger(TaskRunnableImpl.class);
-
+    public static final String OUTPUT_FORMAT = "F:%d,H:%d,D:%d,T:%d,X:%d%n";
+    private static final Logger LOG = LoggerFactory.getLogger(TaskRunnableImpl.class);
     @Autowired
     private ClinicApplication clinicApplication;
 
@@ -34,9 +34,8 @@ public class TaskRunnableImpl implements TaskRunnable {
     public void run(String... args) {
 
         try {
-            validation.verifyInput(args);
+            String input =  validation.verifyInput(args);
 
-            String input = args[0];
             LOG.debug("receive input {}", input);
             ClinicInput clinicInput = transform.getClinicInput(input);
             ClinicStatus clinicStatus = clinicApplication.process(clinicInput);
@@ -64,11 +63,12 @@ public class TaskRunnableImpl implements TaskRunnable {
         System.err.println("ex: P0,P1..,Pn[,M0,M1,..Mn]");
         System.err.print("Pn: Patient state is one of " + Patient.ALLOWED_STATES_KEYS);
         System.err.println(", Mn: Medicine is one of " + Medicine.ALLOWED_MEDICINE_KEYS);
+        System.err.println("Note: SPACE can ne used as separator instead of ','");
     }
 
 
     @Override
     public void displayStatus(int fever, int healthy, int diabetes, int tuberculosis, int dead) {
-        System.out.printf("F:%d,H:%d,D:%d,T:%d,X:%d%n", fever, healthy, diabetes, tuberculosis, dead);
+        System.out.printf(OUTPUT_FORMAT, fever, healthy, diabetes, tuberculosis, dead);
     }
 }

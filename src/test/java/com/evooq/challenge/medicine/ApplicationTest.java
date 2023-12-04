@@ -32,7 +32,7 @@ class ApplicationTest {
         ClinicStatus clinicStatus = getClinicStatus(input);
         Assertions.assertEquals("0-0-0-0-2", clinicStatus.toString());
 
-        input = "F,P";
+        input = "F P";
         clinicStatus = getClinicStatus(input);
         Assertions.assertEquals("0-1-0-0-0", clinicStatus.toString());
 

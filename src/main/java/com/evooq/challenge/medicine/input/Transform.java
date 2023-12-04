@@ -11,9 +11,9 @@ public class Transform {
 
     public ClinicInput getClinicInput(String input) throws InputParseException {
 
-        String[] keys = input.split(",");
+        String[] keys = input.split("[, ]");
         ClinicInput clinicInput = new ClinicInput();
-        boolean alreadyParsedMedecine = false;
+        boolean alreadyParsedMedicine = false;
 
         for (int i = 0; i < keys.length; i++) {
             // check for patients
@@ -21,13 +21,13 @@ public class Transform {
 
             if (Patient.ALLOWED_STATES_KEYS.contains(key)) {
 
-                if (alreadyParsedMedecine) {
+                if (alreadyParsedMedicine) {
                     throw new InputParseException("Input error: Patient keyword placed after medicine (" + key + ").");
                 }
                 clinicInput.getPatients().add(Patient.valueOf(key));
 
             } else if (Medicine.ALLOWED_MEDICINE_KEYS.contains(key)) {
-                alreadyParsedMedecine = true;
+                alreadyParsedMedicine = true;
                 clinicInput.getMedicines().add(Medicine.valueOf(key));
 
             } else {

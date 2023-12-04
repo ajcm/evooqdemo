@@ -20,21 +20,20 @@ public class ValidationTest {
         //empty String
         exception = Assertions.assertThrows(InputParseException.class,
                 () -> validation.verifyInput(null));
-        Assertions.assertEquals("Input error: Expecting one argument.", exception.getMessage());
+        Assertions.assertEquals("Input error: Expecting at least one argument.", exception.getMessage());
 
         //empty String
         exception = Assertions.assertThrows(InputParseException.class,
                 () -> validation.verifyInput(new String[]{""}));
         Assertions.assertEquals("Input error: argument is empty.", exception.getMessage());
 
-
-        //multiple args
-        exception = Assertions.assertThrows(InputParseException.class,
-                () -> validation.verifyInput(new String[]{"banana", "apple"}));
-        Assertions.assertEquals("Input error: Expecting only one argument.", exception.getMessage());
-
         exception = Assertions.assertThrows(InputParseException.class,
                 () -> validation.verifyInput(new String[]{","}));
+        Assertions.assertEquals("Input error: Bad input format.", exception.getMessage());
+
+
+        exception = Assertions.assertThrows(InputParseException.class,
+                () -> validation.verifyInput(new String[]{"",""}));
         Assertions.assertEquals("Input error: Bad input format.", exception.getMessage());
 
         exception = Assertions.assertThrows(InputParseException.class,
@@ -50,6 +49,15 @@ public class ValidationTest {
                 () -> validation.verifyInput(new String[]{"bas??nana"}));
         Assertions.assertEquals("Input error: Bad input format.", exception.getMessage());
 
+    }
+
+    @Test
+    public void testVerifyInputMultipleArgs() throws InputParseException {
+        var output1 = validation.verifyInput(new String[]{"A","B","C"});
+        Assertions.assertEquals("A,B,C", output1);
+
+        var output2 = validation.verifyInput(new String[]{"F","P"});
+        Assertions.assertEquals("F,P", output2);
     }
 
 
